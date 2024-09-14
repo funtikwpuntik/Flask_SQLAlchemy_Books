@@ -1,0 +1,36 @@
+{% extends "index.html" %}
+{% block body %}
+    <h2>Все книги</h2>
+    {% if result %}
+    <h2>{{ result }}</h2>
+    {% endif %}
+    <form method="POST">
+    <button type="submit">Сохранить</button>
+    {%-for book in books %}
+
+        <ul>
+            <li>Номер: {{ book.id }}</li>
+            <li>Автор: {{ book.author }}</li>
+            <li>Название: {{ book.title }}</li>
+            <li>Добавлена: {{ book.added }}</li>
+            <li>
+                <a href="{{url_for('books_by_genre', genre_id=book.genre_id)}}">
+                Жанр: {{ book.genre.name }}
+                </a>
+            </li>
+            <li>
+                <label>
+                    {% if book.is_read %} <input name="is_read"  type="checkbox" value="{{ book.id }}" checked>
+                    {% else %} <input name="is_read"  type="checkbox" value="{{ book.id }}">
+                    {% endif %}
+                    Прочитано
+                </label>
+            </li>
+        </ul>
+
+
+        <hr>
+    {%- endfor %}
+</form>
+
+{% endblock %}
